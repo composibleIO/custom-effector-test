@@ -10,18 +10,16 @@ fluence local up
 fluence deploy
 ```
 
-### Provision ipfs peer 
 You may want to get the archive onto your local networks ipfs peer. The default ipfs effector has a short timeout set. 
 ```
-docker exec -ti fluence-ipfs-1 ipfs get bafybeiamh4td3vg25zlgcw7pybudtxbmkidsqx7lbv5zvodfa4kjsn66dq
-```
+docker exec -ti fluence-ipfs-1 ipfs get QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr
 
 ### run the test 
 
 ```
-fluence run -f 'test()'
+fluence run -f 'test("<yourPinataJWT>")'
 ```
 
-Our aqua script will be downloading a contentadressed folder of files from a Pinata gateway into the partcile vault, then log its contents, and then re-upload them to Pinata. The returned CID should be equal to the archive cid. 
+Our aqua script will be downloading a contentadressed folder of files from a Pinata gateway into the particle vault, then log its contents, and then re-upload them to Pinata. The returned CID should be equal to the archive cid. 
 
 
