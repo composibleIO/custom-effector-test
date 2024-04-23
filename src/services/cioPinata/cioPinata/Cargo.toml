@@ -1,0 +1,24 @@
+[package]
+name = "cioPinata"
+version = "0.1.0"
+edition = "2018"
+
+[[bin]]
+name = "cioPinata"
+path = "src/main.rs"
+
+[dependencies]
+marine-rs-sdk = "0.14.0"
+
+bytes = "1.6.0"
+cio-curl-effector-imports = { git = "https://github.com/composibleIO/cio-curl-effector.git", branch = "main" }
+mime_guess2 = "2.0.5"
+multipart-form-data = "0.1.0"  
+rand = "0.8.5"
+serde = "1.0.171"
+serde_json = "1.0.108"
+walkdir = "2.5.0"
+
+
+[dev-dependencies]
+marine-rs-sdk-test = "0.16.1"

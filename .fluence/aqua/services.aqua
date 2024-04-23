@@ -1,0 +1,20 @@
+aqua Services declares *
+
+
+service CioKubo("cioKubo"):
+  add(ipfs_api: string, content: string) -> string
+  addFolders(ipfs_api: string, path_: string) -> string
+  get(ipfs_api: string, cid: string) -> string
+  getFolders(ipfs_api: string, cid: string, path_: string) -> string
+  inspectParticleVault() -> []string
+  inspectParticleVaultFolder(path: string) -> []string
+
+
+data PinataResult:
+  ipfsHash: string
+  pinSize: u64
+  timestamp: string
+  isDuplicate: bool
+
+service CioPinata("cioPinata"):
+  addFolder(folder: string, pinataJWTKey: string) -> PinataResult

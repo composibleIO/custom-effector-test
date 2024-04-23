@@ -1,0 +1,52 @@
+aqua Main
+
+import "@fluencelabs/aqua-lib/builtin.aqua"
+import "@fluencelabs/aqua-lib/subnet.aqua"
+
+use "deals.aqua"
+use "hosts.aqua"
+import "../../.fluence/aqua/services.aqua"
+
+-- IMPORTANT: Add exports for all functions that you want to run
+export test
+-- DOCUMENTATION:
+-- https://fluence.dev
+
+const SUBNETKUBO = "/dns4/ipfs/tcp/5001"
+
+
+func workers() -> []Worker:
+    results: *[]Worker
+    deals <- Deals.get()
+    dealId = deals.myDeployment!.dealIdOriginal
+    on HOST_PEER_ID:
+        subnet <- Subnet.resolve(dealId)
+        if subnet.success == false:
+            Console.print(["Failed to resolve subnet: ", subnet.error])
+        results <<- subnet.workers
+
+    <- results!
+
+func test(pinataJWTKey: string) -> PinataResult:
+
+    results: *PinataResult
+
+    archive_cid = "QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr"
+
+    logString = (s: string):
+        Console.print(s)
+
+    for w <- workers() par:
+        on w.worker_id! via w.host_id:
+            r1 = CioKubo.getFolders(SUBNETKUBO, archive_cid, "test")
+            -- folders = CioKubo.inspectParticleVaultFolder("test")
+            -- for f <- folders:
+            --     logString(f)
+            results <- CioPinata.addFolder("test", pinataJWTKey)
+    join results!
+
+    if results!.ipfsHash == archive_cid:
+        Console.print("our test is succesful!")
+        
+
+    <- results!
