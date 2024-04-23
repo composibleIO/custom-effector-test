@@ -11,8 +11,10 @@ fluence deploy
 ```
 
 You may want to get the archive onto your local networks ipfs peer. The default ipfs effector has a short timeout set. 
+
 ```
 docker exec -ti fluence-ipfs-1 ipfs get QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr
+``````
 
 ### run the test 
 
