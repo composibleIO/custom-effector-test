@@ -21,13 +21,12 @@ fluence local up
 fluence deploy
 ```
 
-You may want to get the archive onto your local networks ipfs peer. The default ipfs effector has a short timeout set. 
+You may want to get the archive onto your local networks ipfs peer. The ipfs effector has a  timeout set to 30s, which may not be enough at first try. 
 
 ```
-docker exec -ti fluence-ipfs-1 ipfs get QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr
-``````
+docker exec -ti fluence-ipfs-1 ipfs get <cid>
+```
 
-### run the test 
 
 ```
 fluence run -f 'test("<yourPinataJWT>")'
