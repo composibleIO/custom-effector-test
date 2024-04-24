@@ -1,6 +1,6 @@
 This repo demonstrates: 
 
-* how you can write custom effectors and use them on a local network, where you can whitelist them yourself. 
+* how you can write custom effectors and use them on a local [Fluence network](https://fluence.dev), where you can whitelist them yourself. 
 * the use of Pinata to down- and upload folders with files to and from the particle vault. Using Pinata gateways has the benefit of your content being well indexed and available everywhere. When developing on a local network, it can be convenient to keep your data somewhere persistent. 
 
 ![flow](./schema.png)
