@@ -1,7 +1,7 @@
 This repo demonstrates: 
 
 * how you can write custom effectors and use them on a local network, where you can whitelist them yourself. 
-* the use of Pinata to down- and upload folders with files to and from the particle vault. Using Pinata gateways has the benefit of your content being well indexed and available everywhere.Especially when developing on a local network, it can be convenient to keep your data somewhere persistent. 
+* the use of Pinata to down- and upload folders with files to and from the particle vault. Using Pinata gateways has the benefit of your content being well indexed and available everywhere. When developing on a local network, it can be convenient to keep your data somewhere persistent. 
 
 This project symlinks to two services and two effectors, each with their own repository, that should be cloned as siblings: 
 
