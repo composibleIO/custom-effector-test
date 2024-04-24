@@ -27,6 +27,7 @@ You may want to get the archive onto your local networks ipfs peer. The ipfs eff
 docker exec -ti fluence-ipfs-1 ipfs get <cid>
 ```
 
+Run the test:
 
 ```
 fluence run -f 'test("<yourPinataJWT>")'
