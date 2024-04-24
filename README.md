@@ -17,6 +17,7 @@ cd custom-effector-test
 
 ```
 fluence update --version 0.15.28
+fluence dep i
 fluence local up
 fluence deploy
 ```
