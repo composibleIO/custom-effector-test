@@ -282,10 +282,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "cio-ipfs-effector-imports"
+version = "0.1.1"
+source = "git+https://github.com/composibleIO/cio-ipfs-effector?branch=main#59fb3d2f55dba822091a9b6823e419c91c906e98"
+dependencies = [
+ "ipfs-effector-types",
+ "marine-rs-sdk",
+]
+
+[[package]]
 name = "cioKubo"
 version = "0.1.0"
 dependencies = [
- "ipfs-effector-imports",
+ "cio-ipfs-effector-imports",
  "marine-rs-sdk",
  "marine-rs-sdk-test",
 ]
@@ -979,18 +988,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5a611371471e98973dbcab4e0ec66c31a10bc356eeb4d54a0e05eac8158fe38c"
 
 [[package]]
-name = "ipfs-effector-imports"
-version = "0.1.0"
-source = "git+https://github.com/fluencelabs/effectors.git?branch=introduce-crates#8e2c1e73a96fc75c565f2faf0dc2496d33f9f655"
-dependencies = [
- "ipfs-effector-types",
- "marine-rs-sdk",
-]
-
-[[package]]
 name = "ipfs-effector-types"
-version = "0.1.0"
-source = "git+https://github.com/fluencelabs/effectors.git?branch=introduce-crates#8e2c1e73a96fc75c565f2faf0dc2496d33f9f655"
+version = "0.1.1"
+source = "git+https://github.com/composibleIO/cio-ipfs-effector?branch=main#59fb3d2f55dba822091a9b6823e419c91c906e98"
 dependencies = [
  "marine-rs-sdk",
 ]

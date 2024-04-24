@@ -31,7 +31,8 @@ func test(pinataJWTKey: string) -> PinataResult:
 
     results: *PinataResult
 
-    archive_cid = "QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr"
+  --  archive_cid = "QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr" -- medium
+    archive_cid = "QmWvw4aXTWJJMMmxWA95wZrNPvugRfQMMrgkvbfkeuQnNS" -- large
 
     logString = (s: string):
         Console.print(s)
@@ -39,9 +40,9 @@ func test(pinataJWTKey: string) -> PinataResult:
     for w <- workers() par:
         on w.worker_id! via w.host_id:
             r1 = CioKubo.getFolders(SUBNETKUBO, archive_cid, "test")
-            -- folders = CioKubo.inspectParticleVaultFolder("test")
-            -- for f <- folders:
-            --     logString(f)
+            folders = CioKubo.inspectParticleVaultFolder("test")
+            for f <- folders:
+                logString(f)
             results <- CioPinata.addFolder("test", pinataJWTKey)
     join results!
 

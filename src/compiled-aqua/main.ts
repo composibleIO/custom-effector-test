@@ -28,263 +28,346 @@ export const test_script = `
      (seq
       (seq
        (seq
-        (call %init_peer_id% ("getDataSrv" "-relay-") [] -relay-)
-        (call %init_peer_id% ("getDataSrv" "pinataJWTKey") [] -pinataJWTKey-arg-)
-       )
-       (par
         (seq
          (seq
+          (call %init_peer_id% ("getDataSrv" "-relay-") [] -relay-)
+          (call %init_peer_id% ("getDataSrv" "pinataJWTKey") [] -pinataJWTKey-arg-)
+         )
+         (par
           (seq
            (seq
             (seq
              (seq
-              (new $option-inline
+              (seq
                (seq
-                (seq
-                 (new %MyDeployment_obj_map
+                (new $option-inline
+                 (seq
                   (seq
-                   (seq
+                   (new %MyDeployment_obj_map
                     (seq
                      (seq
                       (seq
-                       (ap ("chainNetworkId" 31337) %MyDeployment_obj_map)
-                       (ap ("dealId" "ce85503de9399d4deca3c0b2bb3e9e7cfcbf9c6b") %MyDeployment_obj_map)
+                       (seq
+                        (seq
+                         (ap ("chainNetworkId" 31337) %MyDeployment_obj_map)
+                         (ap ("dealId" "ce85503de9399d4deca3c0b2bb3e9e7cfcbf9c6b") %MyDeployment_obj_map)
+                        )
+                        (ap ("dealIdOriginal" "0xCe85503De9399D4dECa3c0b2bb3e9e7CFCBf9C6B") %MyDeployment_obj_map)
+                       )
+                       (ap ("definition" "bafkreifawnoqyrgm2jrivwqjxkbawhfkn4djv3ugmhxyl4kevt5hsdmkae") %MyDeployment_obj_map)
                       )
-                      (ap ("dealIdOriginal" "0xCe85503De9399D4dECa3c0b2bb3e9e7CFCBf9C6B") %MyDeployment_obj_map)
+                      (ap ("timestamp" "2024-04-24T09:29:00.226Z") %MyDeployment_obj_map)
                      )
-                     (ap ("definition" "bafkreifhrarhsiwplj4mvfmmekov3rtxp7qyogawp76obypunz4jew4uia") %MyDeployment_obj_map)
+                     (canon %init_peer_id% %MyDeployment_obj_map  MyDeployment_obj)
                     )
-                    (ap ("timestamp" "2024-04-23T13:57:42.651Z") %MyDeployment_obj_map)
                    )
-                   (canon %init_peer_id% %MyDeployment_obj_map  MyDeployment_obj)
+                   (xor
+                    (ap MyDeployment_obj $option-inline)
+                    (null)
+                   )
                   )
+                  (canon %init_peer_id% $option-inline  #option-inline-0)
                  )
+                )
+                (new %Deals_obj_map
+                 (seq
+                  (ap ("myDeployment" #option-inline-0) %Deals_obj_map)
+                  (canon %init_peer_id% %Deals_obj_map  Deals_obj)
+                 )
+                )
+               )
+               (ap Deals_obj.$.myDeployment Deals_obj_flat)
+              )
+              (ap Deals_obj_flat.$.[0].dealIdOriginal Deals_obj_flat_flat)
+             )
+             (xor
+              (seq
+               (seq
+                (call -relay- ("subnet" "resolve") [Deals_obj_flat_flat] ret)
+                (new -if-error-
                  (xor
-                  (ap MyDeployment_obj $option-inline)
-                  (null)
-                 )
-                )
-                (canon %init_peer_id% $option-inline  #option-inline-0)
-               )
-              )
-              (new %Deals_obj_map
-               (seq
-                (ap ("myDeployment" #option-inline-0) %Deals_obj_map)
-                (canon %init_peer_id% %Deals_obj_map  Deals_obj)
-               )
-              )
-             )
-             (ap Deals_obj.$.myDeployment Deals_obj_flat)
-            )
-            (ap Deals_obj_flat.$.[0].dealIdOriginal Deals_obj_flat_flat)
-           )
-           (xor
-            (seq
-             (seq
-              (call -relay- ("subnet" "resolve") [Deals_obj_flat_flat] ret)
-              (new -if-error-
-               (xor
-                (seq
-                 (match ret.$.success false
                   (seq
-                   (new $array-inline
+                   (match ret.$.success false
                     (seq
-                     (seq
-                      (ap "Failed to resolve subnet: " $array-inline)
-                      (ap ret.$.error $array-inline)
+                     (new $array-inline
+                      (seq
+                       (seq
+                        (ap "Failed to resolve subnet: " $array-inline)
+                        (ap ret.$.error $array-inline)
+                       )
+                       (canon -relay- $array-inline  #array-inline-0)
+                      )
                      )
-                     (canon -relay- $array-inline  #array-inline-0)
+                     (call -relay- ("run-console" "print") [#array-inline-0])
                     )
                    )
-                   (call -relay- ("run-console" "print") [#array-inline-0])
-                  )
-                 )
-                 (new $-hop-
-                  (new #-hopc-
-                   (canon -relay- $-hop-  #-hopc-)
-                  )
-                 )
-                )
-                (seq
-                 (seq
-                  (ap :error: -if-error-)
-                  (xor
-                   (seq
-                    (match :error:.$.error_code 10001
-                     (null)
-                    )
-                    (new $-hop-
-                     (new #-hopc-
-                      (canon -relay- $-hop-  #-hopc-)
-                     )
-                    )
-                   )
-                   (fail -if-error-)
-                  )
-                 )
-                 (new $-hop-
-                  (new #-hopc-
-                   (canon -relay- $-hop-  #-hopc-)
-                  )
-                 )
-                )
-               )
-              )
-             )
-             (ap ret.$.workers $results-0)
-            )
-            (fail :error:)
-           )
-          )
-          (new $results-0_test
-           (seq
-            (seq
-             (fold $results-0 results-0_fold_var
-              (seq
-               (seq
-                (ap results-0_fold_var $results-0_test)
-                (canon %init_peer_id% $results-0_test  #results-0_iter_canon)
-               )
-               (xor
-                (match #results-0_iter_canon.length 1
-                 (null)
-                )
-                (next results-0_fold_var)
-               )
-              )
-              (never)
-             )
-             (canon %init_peer_id% $results-0_test  #results-0_result_canon)
-            )
-            (ap #results-0_result_canon results-0_gate)
-           )
-          )
-         )
-         (fold results-0_gate.$.[0] w-0
-          (par
-           (xor
-            (seq
-             (seq
-              (seq
-               (seq
-                (seq
-                 (seq
-                  (seq
                    (new $-hop-
                     (new #-hopc-
                      (canon -relay- $-hop-  #-hopc-)
                     )
                    )
+                  )
+                  (seq
+                   (seq
+                    (ap :error: -if-error-)
+                    (xor
+                     (seq
+                      (match :error:.$.error_code 10001
+                       (null)
+                      )
+                      (new $-hop-
+                       (new #-hopc-
+                        (canon -relay- $-hop-  #-hopc-)
+                       )
+                      )
+                     )
+                     (fail -if-error-)
+                    )
+                   )
                    (new $-hop-
                     (new #-hopc-
-                     (canon w-0.$.host_id $-hop-  #-hopc-)
+                     (canon -relay- $-hop-  #-hopc-)
                     )
                    )
                   )
-                  (call w-0.$.worker_id.[0] ("cioKubo" "getFolders") ["/dns4/ipfs/tcp/5001" "QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr" "test"] ret-0)
                  )
-                 (call w-0.$.worker_id.[0] ("cioPinata" "addFolder") ["test" -pinataJWTKey-arg-] ret-1)
-                )
-                (ap ret-1 $results)
-               )
-               (new $-hop-
-                (new #-hopc-
-                 (canon w-0.$.host_id $-hop-  #-hopc-)
                 )
                )
+               (ap ret.$.workers $results-0)
               )
-              (new $-hop-
-               (new #-hopc-
-                (canon -relay- $-hop-  #-hopc-)
-               )
-              )
-             )
-             (new $-hop-
-              (new #-hopc-
-               (canon %init_peer_id% $-hop-  #-hopc-)
-              )
+              (fail :error:)
              )
             )
-            (seq
+            (new $results-0_test
              (seq
               (seq
-               (new $-hop-
-                (new #-hopc-
-                 (canon w-0.$.host_id $-hop-  #-hopc-)
+               (fold $results-0 results-0_fold_var
+                (seq
+                 (seq
+                  (ap results-0_fold_var $results-0_test)
+                  (canon %init_peer_id% $results-0_test  #results-0_iter_canon)
+                 )
+                 (xor
+                  (match #results-0_iter_canon.length 1
+                   (null)
+                  )
+                  (next results-0_fold_var)
+                 )
+                )
+                (never)
+               )
+               (canon %init_peer_id% $results-0_test  #results-0_result_canon)
+              )
+              (ap #results-0_result_canon results-0_gate)
+             )
+            )
+           )
+           (fold results-0_gate.$.[0] w-0
+            (par
+             (xor
+              (seq
+               (seq
+                (seq
+                 (seq
+                  (seq
+                   (seq
+                    (seq
+                     (seq
+                      (seq
+                       (new $-hop-
+                        (new #-hopc-
+                         (canon -relay- $-hop-  #-hopc-)
+                        )
+                       )
+                       (new $-hop-
+                        (new #-hopc-
+                         (canon w-0.$.host_id $-hop-  #-hopc-)
+                        )
+                       )
+                      )
+                      (call w-0.$.worker_id.[0] ("cioKubo" "getFolders") ["/dns4/ipfs/tcp/5001" "QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr" "test"] ret-0)
+                     )
+                     (call w-0.$.worker_id.[0] ("cioKubo" "inspectParticleVaultFolder") ["test"] ret-1)
+                    )
+                    (fold ret-1 f-0
+                     (seq
+                      (seq
+                       (seq
+                        (seq
+                         (seq
+                          (new $-hop-
+                           (new #-hopc-
+                            (canon w-0.$.host_id $-hop-  #-hopc-)
+                           )
+                          )
+                          (new $-hop-
+                           (new #-hopc-
+                            (canon -relay- $-hop-  #-hopc-)
+                           )
+                          )
+                         )
+                         (call %init_peer_id% ("run-console" "print") [f-0])
+                        )
+                        (new $-hop-
+                         (new #-hopc-
+                          (canon -relay- $-hop-  #-hopc-)
+                         )
+                        )
+                       )
+                       (new $-hop-
+                        (new #-hopc-
+                         (canon w-0.$.host_id $-hop-  #-hopc-)
+                        )
+                       )
+                      )
+                      (next f-0)
+                     )
+                     (null)
+                    )
+                   )
+                   (call w-0.$.worker_id.[0] ("cioPinata" "addFolder") ["test" -pinataJWTKey-arg-] ret-2)
+                  )
+                  (ap ret-2 $results)
+                 )
+                 (new $-hop-
+                  (new #-hopc-
+                   (canon w-0.$.host_id $-hop-  #-hopc-)
+                  )
+                 )
+                )
+                (new $-hop-
+                 (new #-hopc-
+                  (canon -relay- $-hop-  #-hopc-)
+                 )
                 )
                )
                (new $-hop-
                 (new #-hopc-
-                 (canon -relay- $-hop-  #-hopc-)
+                 (canon %init_peer_id% $-hop-  #-hopc-)
                 )
                )
               )
-              (new $-hop-
-               (new #-hopc-
-                (canon %init_peer_id% $-hop-  #-hopc-)
+              (seq
+               (seq
+                (seq
+                 (new $-hop-
+                  (new #-hopc-
+                   (canon w-0.$.host_id $-hop-  #-hopc-)
+                  )
+                 )
+                 (new $-hop-
+                  (new #-hopc-
+                   (canon -relay- $-hop-  #-hopc-)
+                  )
+                 )
+                )
+                (new $-hop-
+                 (new #-hopc-
+                  (canon %init_peer_id% $-hop-  #-hopc-)
+                 )
+                )
                )
+               (fail :error:)
               )
              )
-             (fail :error:)
+             (next w-0)
             )
+            (never)
            )
-           (next w-0)
           )
-          (never)
+          (null)
          )
         )
-        (null)
+        (new $results_test
+         (seq
+          (seq
+           (fold $results results_fold_var
+            (seq
+             (seq
+              (ap results_fold_var $results_test)
+              (canon %init_peer_id% $results_test  #results_iter_canon)
+             )
+             (xor
+              (match #results_iter_canon.length 1
+               (null)
+              )
+              (next results_fold_var)
+             )
+            )
+            (never)
+           )
+           (canon %init_peer_id% $results_test  #results_result_canon)
+          )
+          (ap #results_result_canon results_gate)
+         )
+        )
+       )
+       (new $results_test-0
+        (seq
+         (seq
+          (fold $results results_fold_var-0
+           (seq
+            (seq
+             (ap results_fold_var-0 $results_test-0)
+             (canon %init_peer_id% $results_test-0  #results_iter_canon-0)
+            )
+            (xor
+             (match #results_iter_canon-0.length 1
+              (null)
+             )
+             (next results_fold_var-0)
+            )
+           )
+           (never)
+          )
+          (canon %init_peer_id% $results_test-0  #results_result_canon-0)
+         )
+         (ap #results_result_canon-0 results_gate-0)
+        )
        )
       )
-      (new $results_test
-       (seq
-        (seq
-         (fold $results results_fold_var
-          (seq
-           (seq
-            (ap results_fold_var $results_test)
-            (canon %init_peer_id% $results_test  #results_iter_canon)
-           )
-           (xor
-            (match #results_iter_canon.length 1
-             (null)
-            )
-            (next results_fold_var)
-           )
-          )
-          (never)
-         )
-         (canon %init_peer_id% $results_test  #results_result_canon)
+      (new -if-error-
+       (xor
+        (match results_gate-0.$.[0].ipfsHash "QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr"
+         (call %init_peer_id% ("run-console" "print") ["our test is succesful!"])
         )
-        (ap #results_result_canon results_gate)
+        (seq
+         (ap :error: -if-error-)
+         (xor
+          (match :error:.$.error_code 10001
+           (null)
+          )
+          (fail -if-error-)
+         )
+        )
        )
       )
      )
-     (new $results_test-0
+     (new $results_test-1
       (seq
        (seq
-        (fold $results results_fold_var-0
+        (fold $results results_fold_var-1
          (seq
           (seq
-           (ap results_fold_var-0 $results_test-0)
-           (canon %init_peer_id% $results_test-0  #results_iter_canon-0)
+           (ap results_fold_var-1 $results_test-1)
+           (canon %init_peer_id% $results_test-1  #results_iter_canon-1)
           )
           (xor
-           (match #results_iter_canon-0.length 1
+           (match #results_iter_canon-1.length 1
             (null)
            )
-           (next results_fold_var-0)
+           (next results_fold_var-1)
           )
          )
          (never)
         )
-        (canon %init_peer_id% $results_test-0  #results_result_canon-0)
+        (canon %init_peer_id% $results_test-1  #results_result_canon-1)
        )
-       (ap #results_result_canon-0 results_gate-0)
+       (ap #results_result_canon-1 results_gate-1)
       )
      )
     )
-    (call %init_peer_id% ("callbackSrv" "response") [results_gate-0.$.[0]])
+    (call %init_peer_id% ("callbackSrv" "response") [results_gate-1.$.[0]])
    )
   )
  )
@@ -292,9 +375,11 @@ export const test_script = `
 )
 `;
 
+export type TestResultType = { ipfsHash: string; isDuplicate: boolean; pinSize: number; timestamp: string; }
+
 export type TestParams = [pinataJWTKey: string, config?: {ttl?: number}] | [peer: IFluenceClient$$, pinataJWTKey: string, config?: {ttl?: number}];
 
-export type TestResult = Promise<string>;
+export type TestResult = Promise<TestResultType>;
 
 export function test(...args: TestParams): TestResult {
     return callFunction$$(
@@ -314,8 +399,26 @@ export function test(...args: TestParams): TestResult {
         "codomain": {
             "items": [
                 {
-                    "name": "string",
-                    "tag": "scalar"
+                    "name": "PinataResult",
+                    "fields": {
+                        "ipfsHash": {
+                            "name": "string",
+                            "tag": "scalar"
+                        },
+                        "isDuplicate": {
+                            "name": "bool",
+                            "tag": "scalar"
+                        },
+                        "pinSize": {
+                            "name": "u64",
+                            "tag": "scalar"
+                        },
+                        "timestamp": {
+                            "name": "string",
+                            "tag": "scalar"
+                        }
+                    },
+                    "tag": "struct"
                 }
             ],
             "tag": "unlabeledProduct"
