@@ -1,5 +1,6 @@
 [workspace]
 members = [
   "src/services/cioKubo/modules/cioKubo",
-  "src/services/cioPinata/modules/cioPinata"
+  "src/services/cioPinata/modules/cioPinata",
+  "src/services/cioVault/cioVault"
 ]

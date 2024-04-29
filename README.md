@@ -4,7 +4,7 @@ This repo demonstrates:
 * the use of Pinata to down- and upload folders with files to and from the particle vault. Using Pinata gateways has the benefit of your content being well indexed and available everywhere. When developing on ephemeral local networks, it can be convenient to keep your data somewhere persistent. 
 
 ![flow](./schema.png)
-
+    
 This project symlinks to two services and two effectors, each with their own repository, that should be cloned as siblings: 
 
 ```
@@ -12,6 +12,7 @@ git clone https://github.com/composibleIO/cio-curl-effector.git
 git clone https://github.com/composibleIO/cio-ipfs-effector.git
 git clone https://github.com/composibleIO/cio-kubo.git
 git clone https://github.com/composibleIO/cio-pinata.git
+git clone https://github.com/composibleIO/cio-vault.git
 
 git clone https://github.com/composibleIO/custom-effector-test.git
 cd custom-effector-test

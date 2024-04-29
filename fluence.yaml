@@ -10,7 +10,7 @@ deployments:
   myDeployment:
     targetWorkers: 3
     pricePerWorkerEpoch: "0.33"
-    services: [ cioKubo, cioPinata ]
+    services: [ cioKubo, cioPinata, cioVault]
     spells: []
 
 aquaDependencies:
@@ -28,5 +28,7 @@ services:
     get: src/services/cioKubo
   cioPinata:
     get: src/services/cioPinata
+  cioVault:
+    get: src/services/cioVault
 
 defaultSecretKeyName: joera

@@ -15,7 +15,7 @@ nox:
       allowedBinaries:
         curl: /usr/bin/curl
     ipfs:
-      wasmCID: bafkreic43ajmlqhna7xrdadnbkfcsecygl43jmjqajz5xyyhoypfo563qe
+      wasmCID: bafkreifwz7ia6otb3czodw62hnpvvgnd2wezo4mp27x3vove4ubrtavida
       allowedBinaries:
         ipfs: /usr/bin/ipfs
 
@@ -36,7 +36,7 @@ offers:
       - nox-2
     effectors:
       - bafybeie52bp5eyfhzotkhsexhqhn67v5zddru224gtcv5gj7gvbxcvkhqe
-      - bafkreic43ajmlqhna7xrdadnbkfcsecygl43jmjqajz5xyyhoypfo563qe 
+      - bafkreifwz7ia6otb3czodw62hnpvvgnd2wezo4mp27x3vove4ubrtavida    
 
 capacityCommitments:
   nox-0:

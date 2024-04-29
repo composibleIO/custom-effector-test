@@ -54,9 +54,9 @@ export const test_script = `
                         )
                         (ap ("dealIdOriginal" "0xCe85503De9399D4dECa3c0b2bb3e9e7CFCBf9C6B") %MyDeployment_obj_map)
                        )
-                       (ap ("definition" "bafkreifawnoqyrgm2jrivwqjxkbawhfkn4djv3ugmhxyl4kevt5hsdmkae") %MyDeployment_obj_map)
+                       (ap ("definition" "bafkreichfxxt4z5qmcykvmjrqpsqrrpl77msr2hnhagnpfqnjeavrdv7gq") %MyDeployment_obj_map)
                       )
-                      (ap ("timestamp" "2024-04-24T09:29:00.226Z") %MyDeployment_obj_map)
+                      (ap ("timestamp" "2024-04-29T10:39:46.439Z") %MyDeployment_obj_map)
                      )
                      (canon %init_peer_id% %MyDeployment_obj_map  MyDeployment_obj)
                     )
@@ -185,9 +185,9 @@ export const test_script = `
                         )
                        )
                       )
-                      (call w-0.$.worker_id.[0] ("cioKubo" "getFolders") ["/dns4/ipfs/tcp/5001" "QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr" "test"] ret-0)
+                      (call w-0.$.worker_id.[0] ("cioKubo" "getRecursive") ["/dns4/ipfs/tcp/5001" "QmWvw4aXTWJJMMmxWA95wZrNPvugRfQMMrgkvbfkeuQnNS" "test"] ret-0)
                      )
-                     (call w-0.$.worker_id.[0] ("cioKubo" "inspectParticleVaultFolder") ["test"] ret-1)
+                     (call w-0.$.worker_id.[0] ("cioVault" "inspect") ["test"] ret-1)
                     )
                     (fold ret-1 f-0
                      (seq
@@ -328,7 +328,7 @@ export const test_script = `
       )
       (new -if-error-
        (xor
-        (match results_gate-0.$.[0].ipfsHash "QmTzi6DkQzcRPW17BJeFuQdxYoyToHeasTTPD2a9HxiQFr"
+        (match results_gate-0.$.[0].result "QmWvw4aXTWJJMMmxWA95wZrNPvugRfQMMrgkvbfkeuQnNS"
          (call %init_peer_id% ("run-console" "print") ["our test is succesful!"])
         )
         (seq
@@ -375,7 +375,7 @@ export const test_script = `
 )
 `;
 
-export type TestResultType = { ipfsHash: string; isDuplicate: boolean; pinSize: number; timestamp: string; }
+export type TestResultType = { success: boolean; result: string; host_id: string; timestamp: number; result_raw: string; }
 
 export type TestParams = [pinataJWTKey: string, config?: {ttl?: number}] | [peer: IFluenceClient$$, pinataJWTKey: string, config?: {ttl?: number}];
 
@@ -399,21 +399,25 @@ export function test(...args: TestParams): TestResult {
         "codomain": {
             "items": [
                 {
-                    "name": "PinataResult",
+                    "name": "AMResponse",
                     "fields": {
-                        "ipfsHash": {
-                            "name": "string",
-                            "tag": "scalar"
-                        },
-                        "isDuplicate": {
+                        "success": {
                             "name": "bool",
                             "tag": "scalar"
                         },
-                        "pinSize": {
-                            "name": "u64",
+                        "result": {
+                            "name": "string",
+                            "tag": "scalar"
+                        },
+                        "host_id": {
+                            "name": "string",
                             "tag": "scalar"
                         },
                         "timestamp": {
+                            "name": "i64",
+                            "tag": "scalar"
+                        },
+                        "result_raw": {
                             "name": "string",
                             "tag": "scalar"
                         }

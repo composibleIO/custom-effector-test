@@ -284,7 +284,7 @@ dependencies = [
 [[package]]
 name = "cio-ipfs-effector-imports"
 version = "0.1.1"
-source = "git+https://github.com/composibleIO/cio-ipfs-effector?branch=main#59fb3d2f55dba822091a9b6823e419c91c906e98"
+source = "git+https://github.com/composibleIO/cio-ipfs-effector?branch=main#6443d3f083dcb62bcd18739e51141628430c2ca9"
 dependencies = [
  "ipfs-effector-types",
  "marine-rs-sdk",
@@ -304,6 +304,7 @@ name = "cioPinata"
 version = "0.1.0"
 dependencies = [
  "bytes",
+ "chrono",
  "cio-curl-effector-imports",
  "marine-rs-sdk",
  "marine-rs-sdk-test",
@@ -313,6 +314,14 @@ dependencies = [
  "serde",
  "serde_json",
  "walkdir",
+]
+
+[[package]]
+name = "cioVault"
+version = "0.1.0"
+dependencies = [
+ "marine-rs-sdk",
+ "marine-rs-sdk-test",
 ]
 
 [[package]]
@@ -990,7 +999,7 @@ checksum = "5a611371471e98973dbcab4e0ec66c31a10bc356eeb4d54a0e05eac8158fe38c"
 [[package]]
 name = "ipfs-effector-types"
 version = "0.1.1"
-source = "git+https://github.com/composibleIO/cio-ipfs-effector?branch=main#59fb3d2f55dba822091a9b6823e419c91c906e98"
+source = "git+https://github.com/composibleIO/cio-ipfs-effector?branch=main#6443d3f083dcb62bcd18739e51141628430c2ca9"
 dependencies = [
  "marine-rs-sdk",
 ]

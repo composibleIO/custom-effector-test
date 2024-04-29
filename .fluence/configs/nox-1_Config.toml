@@ -30,7 +30,7 @@ wasm_cid = "bafybeie52bp5eyfhzotkhsexhqhn67v5zddru224gtcv5gj7gvbxcvkhqe"
   curl = "/usr/bin/curl"
 
 [effectors.ipfs]
-wasm_cid = "bafkreic43ajmlqhna7xrdadnbkfcsecygl43jmjqajz5xyyhoypfo563qe"
+wasm_cid = "bafkreifwz7ia6otb3czodw62hnpvvgnd2wezo4mp27x3vove4ubrtavida"
 
   [effectors.ipfs.allowed_binaries]
   ipfs = "/usr/bin/ipfs"
